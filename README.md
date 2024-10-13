@@ -1,5 +1,5 @@
 
-# WebAssembly + vite frontend example
+# WebAssembly + vite example
 
 Este é um exemplo de arquitetura simples para projetos web com motores Rust.
 
