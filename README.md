@@ -1,11 +1,18 @@
 
-### Dependências
+# WebAssembly + vite frontend example
+
+Este é um exemplo de arquitetura simples para projetos web com motores Rust.
+
+### ⚙ Dependências
+
+Cargo --> **toml [1]**
 
 ```toml
     [dependencies]
     wasm-bindgen = "0.2"
 ```
 
+npm --> **json [2]**
 
 ```json
     - 🎨 composições:
@@ -33,8 +40,18 @@
     }
 ```
 
+### 💚 Mapa dos códigos vitais:
 
-### 📦 Build
+```
+                            ./
+                             |
+[2] package.json <-- src <-- |
+                             | --> wasm --> Cargo.toml [1]
+```
+
+
+
+## 📦 Build
 
 **Para realizar build do webassembly:**
 
@@ -42,6 +59,12 @@
     wasm-pack build --target web
 ```
 
+ou execute um dos seguintes arquivos dentro de `./wasm`:
+
+```
+    /wasm/wasm-build.ps1
+    /wasm/wasm-build.sh
+```
 
 ### Docs for WebAssembly:
 
@@ -50,13 +73,4 @@
 - [Rust 🦀 and WebAssembly 🕸
 ](https://rustwasm.github.io/docs/book/)
 
-
-### 💚🩺 Mapa dos códigos vitais:
-
-```
-                        ./
-                         |
-package.json <-- src <-- |
-                         | --> wasm --> Cargo.toml
-```
 
