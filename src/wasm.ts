@@ -1,8 +1,14 @@
+import init, { is_prime } from '../wasm/pkg/wasm';
 
-import init, { greet } from '../wasm/pkg/wasm';
+// Inicializa o WebAssembly
+export async function initWasm(): Promise<void> {
+  await init(); // Inicializa o Wasm
+}
 
-export async function runWasm(): Promise<string> {
-  await init();  // Inicializa o WebAssembly
-  const greeting = greet('WebAssembly com Vite e React');  // Chama a função `greet` e pega o retorno
-  return greeting;  // Retorna a string
+
+
+
+export async function checkPrime(n: number): Promise<boolean> {
+  const result = is_prime(n); // Chama a função Rust `is_prime`
+  return result;
 }
