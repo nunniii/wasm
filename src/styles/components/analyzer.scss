@@ -1,0 +1,35 @@
+
+
+.dashboard{
+    width: 80vw;
+    display: flex;
+    height: 98vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+
+    .results{
+        width: 20vw;
+        background-color: whitesmoke;
+        color: black;
+        height: 50vh;
+        margin: .5rem; 
+        
+        ul{
+            list-style: disc;
+            padding: 1rem;
+
+            li{
+                margin-left: 1rem;
+            }
+            
+        }
+        
+        overflow-y: auto;
+    }
+
+}
+

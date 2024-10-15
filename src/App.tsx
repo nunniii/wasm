@@ -1,43 +1,37 @@
-import React, { useState } from 'react';
-import { initWasm, checkPrime } from './wasm';
+import React, { useState, useEffect } from 'react'; // Importando useEffect
+import { initWasm } from './wasm';
+import { Nav } from './components/Nav'
+import Editor from './components/Editor';
+import {Analyzer} from './components/analyzers/Analyzer'; // Importando o novo componente
+
+import { D3Chart } from './components/D3Chart';
+
+import './styles/app.scss';
 
 const App: React.FC = () => {
-  const [inputValue, setInputValue] = useState<number>(0);
-  const [primeCheck, setPrimeCheck] = useState<string>('');
+  const [dataArray, setDataArray] = useState<number[]>([]); // Para armazenar o array de números
 
-  // inicializa o wasm assim que o componente carrega
-  useState(() => {
+  // Inicializa o wasm assim que o componente carrega
+  useEffect(() => {
     initWasm();
-  }, []);
-
-  // Função para verificar se o número é primo
-  const handleCheckPrime = async () => {
-    const isPrime = await checkPrime(inputValue);
-    setPrimeCheck(isPrime ? `${inputValue} é primo` : `${inputValue} não é primo`);
-  };
+  }, []); // useEffect deve ter um array de dependências
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 space-y-4">
-      <h1 className="text-2xl font-bold">Verificador de Número Primo com WebAssembly</h1>
+    <div id="App">
+      <Nav />
 
-      {/* Input para o usuário inserir um número */}
-      <div className="flex space-x-2">
-        <input
-          type="number"
-          value={inputValue}
-          onChange={(e) => setInputValue(Number(e.target.value))}
-          className="px-4 py-2 border rounded"
-        />
-        <button
-          onClick={handleCheckPrime}
-          className="px-4 py-2 bg-green-500 text-white rounded"
-        >
-          Verificar se é Primo
-        </button>
+      <div className='app'>
+        <div className='flex'>
+          <Editor setDataArray={setDataArray} />
+          <D3Chart dataArray={dataArray} />
+
+        </div>
+        
+        {/* Chamando o componente Analyzer e passando o dataArray */}
+        <Analyzer dataArray={dataArray} />
+
+        
       </div>
-
-      {/* Exibe o resultado da verificação */}
-      {primeCheck && <p className="mt-4">{primeCheck}</p>}
     </div>
   );
 };
