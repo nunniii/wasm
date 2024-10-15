@@ -18,7 +18,7 @@ const Editor: React.FC<EditorProps> = ({ setDataArray }) => {
 
   const [code, setCode] = useState<string>(initialCode);
   const [currentLine, setCurrentLine] = useState<number>(0);
-  const [showEntries, setShowEntries] = useState<boolean>(false); // Estado para controle de exibição
+  const [showEntries, setShowEntries] = useState<boolean>(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -109,35 +109,33 @@ const Editor: React.FC<EditorProps> = ({ setDataArray }) => {
         </div>
       </div>
       <div className="flex flex-col">
-
-          <div className="checkbox-container">
-            <label>
-              <input
-                type="checkbox"
-                checked={showEntries}
-                onChange={() => setShowEntries(!showEntries)}
-              />
-              Exibir entradas
-            </label>
-          </div>
-          <div className={`data-display ${isArrayValid ? '' : 'error'} ${showEntries ? 'show' : 'hide'}`}>
-            <h2>Entradas:</h2>
-            {isArrayValid ? (
-              <div className="entries">
-                {parsedArray.map((item, index) => (
-                  <div
-                    key={index}
-                    className="entry-item bg-zinc-500 rounded-md p-1 mb-1 text-white text-[10pt]"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <pre className="output-code">{alertMessage}</pre>
-            )}
-          </div>
-
+        <div className="checkbox-container">
+          <label>
+            <input
+              type="checkbox"
+              checked={showEntries}
+              onChange={() => setShowEntries(!showEntries)}
+            />
+            Exibir entradas
+          </label>
+        </div>
+        <div className={`data-display ${isArrayValid ? '' : 'error'} ${showEntries ? 'show' : 'hide'}`}>
+          <h2>Entradas:</h2>
+          {isArrayValid ? (
+            <div className="entries">
+              {parsedArray.map((item, index) => (
+                <div
+                  key={index}
+                  className="entry-item bg-zinc-500 rounded-md p-1 mb-1 text-white text-[10pt]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <pre className="output-code">{alertMessage}</pre>
+          )}
+        </div>
       </div>
     </div>
   );

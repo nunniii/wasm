@@ -1,67 +1,56 @@
 import React, { useEffect, useState } from 'react';
-import { checkPrime } from '../../wasm';
-
-import '../../styles/components/analyzer.scss'
+import { processDuplicates, filterPrimes } from '../../wasm';
+import '../../styles/components/analyzer.scss';
 
 interface AnalyzerProps {
   dataArray: number[];
 }
 
 export const Analyzer: React.FC<AnalyzerProps> = ({ dataArray }) => {
-  const [primeResults, setPrimeResults] = useState<{ number: number; isPrime: boolean }[]>([]);
+  const [uniqueArray, setUniqueArray] = useState<number[]>([]);
+  const [primeArray, setPrimeArray] = useState<number[]>([]); 
 
   useEffect(() => {
     const processArray = async () => {
-      const results = [];
-      for (const number of dataArray) {
-        const isPrime = await checkPrime(number);
-        results.push({ number, isPrime });
+      if (dataArray.length > 0) {
+        // Processa duplicatas
+        const withoutDuplicates = await processDuplicates(dataArray);
+        setUniqueArray(withoutDuplicates); // Atualiza o array sem duplicatas no estado
+
+        const primes = await filterPrimes(dataArray);
+        setPrimeArray(primes); // Atualiza o array de primos no estado
+      } else {
+        // Limpa os arrays seguintes SE não houver dados
+        setUniqueArray([]); 
+        setPrimeArray([]); 
       }
-      setPrimeResults(results); // Atualiza os resultados no estado
     };
 
-    if (dataArray.length > 0) {
-      processArray();
-    }
-  }, [dataArray]); // Dependência no dataArray para processar quando mudar
+    processArray();
+  }, [dataArray]);
 
   return (
     <div className='dashboard'>
       <div className='results'>
-        {primeResults.length > 0 ? (
-          <ul>
-            {primeResults.map((result) => (
-              <li key={result.number}>
-                {result.number} é {result.isPrime ? '' : 'não '}primo
-              </li>
-            ))}
-          </ul>
+
+      {primeArray.length > 0 ? (
+          <div>
+            <p><span className='destaque'>Primes = [ </span>{primeArray.join(', ')}<span className='destaque'>]</span></p>
+          </div>
         ) : (
-          <p className="text-gray-500">Nenhum número verificado ainda.</p>
+          <p className="text-gray-500">Nenhum número primo encontrado.</p>
         )}
+
+        {uniqueArray.length > 0 ? (
+          <div>
+            <p><span className='destaque'>without_duplicated_elements = [</span>{uniqueArray.join(', ')}<span className='destaque'>]</span></p>
+          </div>
+        ) : (
+          <p className="text-gray-500">Nenhum número processado ainda.</p>
+        )}
+        
+        
       </div>
     </div>
   );
 };
-
-
-// -- -- Funções auxiliares:
-// Eliminar duplicados
-
-
-
-// -- -- Métodos objetivos:
-
-// Numeros primos;
-// Soma (todos);
-// Produto (//);
-// Potenciação recursiva x.index()^x.index()+1;
-// Potenciação recursiva por 1/2;
-// mmc
-// mdc 
-// Contagem de Ocorrências: Retorna um objeto que indica a frequência que cada elemento aparece no array;
-// Valor max e vamor min (lim) --> retornar "lim = (<vl.min.>, <vl.max>)"
-// retornar os elementos do array em ordem Decrescente;
-//     //     ///    //   //  //  //   //  Crescente;
-// Média
-// Moda

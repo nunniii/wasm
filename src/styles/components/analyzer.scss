@@ -3,7 +3,8 @@
 .dashboard{
     width: 80vw;
     display: flex;
-    height: 98vh;
+
+    margin: 5rem 10rem 5rem 10rem; 
 
     display: flex;
     align-items: center;
@@ -12,11 +13,10 @@
 
 
     .results{
-        width: 20vw;
         background-color: whitesmoke;
         color: black;
-        height: 50vh;
         margin: .5rem; 
+        text-align: justify;
         
         ul{
             list-style: disc;
@@ -28,7 +28,12 @@
             
         }
         
-        overflow-y: auto;
+
+        .destaque{
+            color: blue;
+            font-weight: bold;
+        }
+
     }
 
 }

@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'; // Importando useEffect
+import React, { useState, useEffect } from 'react';
 import { initWasm } from './wasm';
-import { Nav } from './components/Nav'
+import { Nav } from './components/Nav';
 import Editor from './components/Editor';
-import {Analyzer} from './components/analyzers/Analyzer'; // Importando o novo componente
-
+import { Analyzer } from './components/analyzers/Analyzer';
 import { D3Chart } from './components/D3Chart';
-
 import './styles/app.scss';
 
 const App: React.FC = () => {
@@ -24,13 +22,10 @@ const App: React.FC = () => {
         <div className='flex'>
           <Editor setDataArray={setDataArray} />
           <D3Chart dataArray={dataArray} />
-
         </div>
-        
+
         {/* Chamando o componente Analyzer e passando o dataArray */}
         <Analyzer dataArray={dataArray} />
-
-        
       </div>
     </div>
   );
